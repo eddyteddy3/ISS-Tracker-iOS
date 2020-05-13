@@ -52,13 +52,29 @@
 		0322F9F5246B7834009507D7 /* ISS Tracker */ = {
 			isa = PBXGroup;
 			children = (
-				0322F9F6246B7834009507D7 /* AppDelegate.swift */,
-				0322F9F8246B7834009507D7 /* SceneDelegate.swift */,
-				0322F9FA246B7834009507D7 /* ViewController.swift */,
+				0322FA0B246B7E35009507D7 /* Controller */,
+				0322FA0A246B7E29009507D7 /* Application */,
 				0322F9FF246B7838009507D7 /* Assets.xcassets */,
 				0322FA04246B7838009507D7 /* Info.plist */,
 			);
 			path = "ISS Tracker";
+			sourceTree = "<group>";
+		};
+		0322FA0A246B7E29009507D7 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				0322F9F6246B7834009507D7 /* AppDelegate.swift */,
+				0322F9F8246B7834009507D7 /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		0322FA0B246B7E35009507D7 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0322F9FA246B7834009507D7 /* ViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
