@@ -82,6 +82,19 @@ class ViewController: UIViewController {
         let label = UILabel()
         return label.createLabel(text: "123412")
     }()
+    
+    //Coordinates translation Label
+    var coordinateTranslationLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.text = "Coordinates Translation"
+        label.font = UIFont.boldSystemFont(ofSize: 30)
+        label.textColor = .darkGray
+        label.adjustsFontSizeToFitWidth = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        return label
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,17 +105,21 @@ class ViewController: UIViewController {
     func initializeUI() {
         view.backgroundColor = .white
         
+        //Adding Views to the Stack Views.
         longStackView.addArrangedSubview(LongitudeLabel)
         longStackView.addArrangedSubview(longitudeValueLabel)
         
         latStackView.addArrangedSubview(latitudeLabel)
         latStackView.addArrangedSubview(latitudeValueLabel)
         
+        //Adding views to the parent view.
         view.addSubview(trackISSButton)
         view.addSubview(ISSHeaderLabel)
         view.addSubview(longStackView)
         view.addSubview(latStackView)
+        view.addSubview(coordinateTranslationLabel)
         
+        //Implementing Auto Layout
         NSLayoutConstraint.activate([
             trackISSButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
             trackISSButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
@@ -113,7 +130,11 @@ class ViewController: UIViewController {
             
             longStackView.topAnchor.constraint(equalTo: ISSHeaderLabel.bottomAnchor, constant: 40),
             
-            latStackView.topAnchor.constraint(equalTo: longStackView.bottomAnchor, constant: 20)
+            latStackView.topAnchor.constraint(equalTo: longStackView.bottomAnchor, constant: 20),
+            
+            coordinateTranslationLabel.topAnchor.constraint(equalTo: latStackView.bottomAnchor, constant: 30),
+            
+            coordinateTranslationLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor)
         ])
         
         let longStackViewWidth = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[stackView]-20-|", options: .alignAllCenterX, metrics: nil, views: ["stackView": longStackView])
@@ -134,7 +155,7 @@ extension UILabel {
     func createLabel(text: String) -> UILabel {
         self.text = text
         self.numberOfLines = 0
-        self.font = UIFont.systemFont(ofSize: 15)
+        self.font = UIFont.systemFont(ofSize: 20)
         self.adjustsFontSizeToFitWidth = true
         
         return self
