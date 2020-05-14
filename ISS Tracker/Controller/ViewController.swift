@@ -47,9 +47,40 @@ class ViewController: UIViewController {
         return stackView
     }()
     
+    //longitude Text
     var LongitudeLabel: UILabel = {
         let label = UILabel()
         return label.createLabel(text: "Longitude: ")
+    }()
+    
+    //longitude Value Label that will be retrieved from API
+    var longitudeValueLabel: UILabel = {
+        let label = UILabel()
+        return label.createLabel(text: "123412")
+    }()
+    
+    //Stack View to contain Latitude and its value text
+    var latStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.alignment = .leading
+        stackView.distribution = .fillEqually
+        stackView.axis = .horizontal
+        stackView.autoresizingMask = .flexibleRightMargin
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return stackView
+    }()
+    
+    //latitude Text
+    var latitudeLabel: UILabel = {
+        let label = UILabel()
+        return label.createLabel(text: "Latitude: ")
+    }()
+    
+    //latitude Value Label that will be retrieved from API
+    var latitudeValueLabel: UILabel = {
+        let label = UILabel()
+        return label.createLabel(text: "123412")
     }()
 
     override func viewDidLoad() {
@@ -62,10 +93,15 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         
         longStackView.addArrangedSubview(LongitudeLabel)
+        longStackView.addArrangedSubview(longitudeValueLabel)
+        
+        latStackView.addArrangedSubview(latitudeLabel)
+        latStackView.addArrangedSubview(latitudeValueLabel)
         
         view.addSubview(trackISSButton)
         view.addSubview(ISSHeaderLabel)
         view.addSubview(longStackView)
+        view.addSubview(latStackView)
         
         NSLayoutConstraint.activate([
             trackISSButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
@@ -75,12 +111,16 @@ class ViewController: UIViewController {
             ISSHeaderLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             ISSHeaderLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 45),
             
-            longStackView.topAnchor.constraint(equalTo: ISSHeaderLabel.bottomAnchor, constant: 40)
+            longStackView.topAnchor.constraint(equalTo: ISSHeaderLabel.bottomAnchor, constant: 40),
+            
+            latStackView.topAnchor.constraint(equalTo: longStackView.bottomAnchor, constant: 20)
         ])
         
         let longStackViewWidth = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[stackView]-20-|", options: .alignAllCenterX, metrics: nil, views: ["stackView": longStackView])
+        let latStackViewWidth = NSLayoutConstraint.constraints(withVisualFormat: "H:|-20-[stackView]-20-|", options: .alignAllCenterX, metrics: nil, views: ["stackView": latStackView])
         
         view.addConstraints(longStackViewWidth)
+        view.addConstraints(latStackViewWidth)
     }
     
     @objc
