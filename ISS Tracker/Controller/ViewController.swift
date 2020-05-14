@@ -14,8 +14,13 @@ class ViewController: UIViewController {
     var trackISSButton: UIButton = {
         let trackButton = UIButton(type: .system)
         trackButton.setTitle("Track ISS", for: .normal)
-        trackButton.backgroundColor = .magenta
-        trackButton.layer.cornerRadius = 5
+        trackButton.setTitleColor(.white, for: .normal)
+        trackButton.backgroundColor = .gray
+        trackButton.layer.cornerRadius = 20
+        trackButton.layer.shadowColor = UIColor.darkGray.cgColor
+        trackButton.layer.shadowOffset = .init(width: 2, height: 4)
+        trackButton.layer.shadowRadius = 5
+        trackButton.layer.shadowOpacity = 0.6
         trackButton.translatesAutoresizingMaskIntoConstraints = false
         trackButton.addTarget(self, action: #selector(doSomeThing), for: .touchUpInside)
         
@@ -124,6 +129,7 @@ class ViewController: UIViewController {
             trackISSButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
             trackISSButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             trackISSButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            trackISSButton.heightAnchor.constraint(equalToConstant: 60),
             
             ISSHeaderLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             ISSHeaderLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 45),
