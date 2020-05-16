@@ -63,7 +63,7 @@ class ViewController: UIViewController {
     //longitude Value Label that will be retrieved from API
     var longitudeValueLabel: UILabel = {
         let label = UILabel()
-        return label.createLabel(text: "34.1039")
+        return label.createLabel(text: "[Coordinates]")
     }()
     
     //Stack View to contain Latitude and its value text
@@ -87,7 +87,7 @@ class ViewController: UIViewController {
     //latitude Value Label that will be retrieved from API
     var latitudeValueLabel: UILabel = {
         let label = UILabel()
-        return label.createLabel(text: "51.4689")
+        return label.createLabel(text: "[Coordinates]")
     }()
     
     //Coordinates translation Label
@@ -101,6 +101,17 @@ class ViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         
         return label
+    }()
+    
+    var defineISSButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.target(forAction: #selector(defineISS), withSender: self)
+        button.setTitle("What is ISS?", for: .normal)
+        button.titleLabel?.font = UIFont.italicSystemFont(ofSize: 15)
+        button.frame.size = CGSize.init(width: 50, height: 50)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
     }()
 
     override func viewDidLoad() {
@@ -124,6 +135,7 @@ class ViewController: UIViewController {
         view.addSubview(longStackView)
         view.addSubview(latStackView)
         view.addSubview(coordinateTranslationLabel)
+        view.addSubview(defineISSButton)
         
         //Implementing Auto Layout
         NSLayoutConstraint.activate([
@@ -131,6 +143,9 @@ class ViewController: UIViewController {
             trackISSButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             trackISSButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             trackISSButton.heightAnchor.constraint(equalToConstant: 60),
+            
+            defineISSButton.topAnchor.constraint(equalTo: ISSHeaderLabel.layoutMarginsGuide.bottomAnchor),
+            defineISSButton.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             
             ISSHeaderLabel.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
             ISSHeaderLabel.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor, constant: 45),
@@ -152,7 +167,8 @@ class ViewController: UIViewController {
     }
     
     
-    
+    //MARK:- Target Actions.
+    //action to retrieve the coordinates.
     @objc
     func doSomeThing() {
 //        guard let longitudeValue = longitudeValueLabel.text else {return}
@@ -176,6 +192,34 @@ class ViewController: UIViewController {
 //        }
 //
         guard let url = URL(string: "http://api.open-notify.org/iss-now.json") else { return }
+        
+        URLSession.shared.dataTask(with: url) { (data, response, error) in
+            if let response = response as? HTTPURLResponse {
+              //  if response.statusCode == 200...400 {
+                   // print("Response: \(response.statusCode)")
+               // } else {
+                    print("Response: \(response.statusCode)")
+                //}
+                
+                let jsonDecoder = JSONDecoder()
+                
+                guard let jsonData = try? jsonDecoder.decode(ApiModel.self, from: data!) else {
+                    print("Could not decode ")
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    self.longitudeValueLabel.text = jsonData.iss_position.longitude
+                    self.latitudeValueLabel.text = jsonData.iss_position.latitude
+                }
+                
+            }
+        }.resume()
+    }
+    
+    @objc
+    func defineISS() {
+        
     }
 
 }

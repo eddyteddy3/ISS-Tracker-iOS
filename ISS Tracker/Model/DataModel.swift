@@ -8,12 +8,11 @@
 
 import Foundation
 
-struct ApiModel {
+struct ApiModel: Codable {
     var message: String
-    var timestamp: String
     var iss_position: ISSPosition
         
-    struct ISSPosition {
+    struct ISSPosition: Codable {
         var longitude: String
         var latitude: String
     }
