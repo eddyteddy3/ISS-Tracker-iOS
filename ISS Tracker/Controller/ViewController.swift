@@ -137,6 +137,11 @@ class ViewController: UIViewController {
         view.addSubview(coordinateTranslationLabel)
         view.addSubview(defineISSButton)
         
+        implementAutolayout()
+    }
+    
+    //MARK: Autolayouts
+    func implementAutolayout() {
         //Implementing Auto Layout
         NSLayoutConstraint.activate([
             trackISSButton.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
@@ -166,55 +171,57 @@ class ViewController: UIViewController {
         view.addConstraints(latStackViewWidth)
     }
     
-    
     //MARK:- Target Actions.
     //action to retrieve the coordinates.
     @objc
     func doSomeThing() {
-//        guard let longitudeValue = longitudeValueLabel.text else {return}
-//        let long = CLLocationDegrees(exactly: Double(longitudeValue)!)
-//
-//        guard let latitudeValue = latitudeValueLabel.text else {return}
-//        let lat = CLLocationDegrees(exactly: Double(latitudeValue)!)
-//
-//        let location = CLLocation(latitude: lat!, longitude: long!)
-//
-//        let address = CLGeocoder.init()
-//        address.reverseGeocodeLocation(location) { (places, error) in
-//            guard let _ = error else {
-//                print("Error translating coordinates")
-//                return
-//            }
-//
-//            if let place = places {
-//                print(place)
-//            }
-//        }
-//
+        
+        
+        
         guard let url = URL(string: "http://api.open-notify.org/iss-now.json") else { return }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if let response = response as? HTTPURLResponse {
-              //  if response.statusCode == 200...400 {
-                   // print("Response: \(response.statusCode)")
-               // } else {
-                    print("Response: \(response.statusCode)")
-                //}
-                
-                let jsonDecoder = JSONDecoder()
-                
-                guard let jsonData = try? jsonDecoder.decode(ApiModel.self, from: data!) else {
-                    print("Could not decode ")
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    self.longitudeValueLabel.text = jsonData.iss_position.longitude
-                    self.latitudeValueLabel.text = jsonData.iss_position.latitude
-                }
-                
+                debugPrint(response.statusCode)
+            }
+            
+            let jsonDecoder = JSONDecoder()
+            
+            guard let jsonData = try? jsonDecoder.decode(ApiModel.self, from: data!) else {
+                print("Could not decode ")
+                return
+            }
+            
+            self.convertCoordinates(lat: jsonData.iss_position.latitude, long: jsonData.iss_position.longitude)
+            
+            DispatchQueue.main.async {
+                self.longitudeValueLabel.text = jsonData.iss_position.longitude
+                self.latitudeValueLabel.text = jsonData.iss_position.latitude
             }
         }.resume()
+        
+    }
+    
+    func convertCoordinates(lat: String, long: String) {
+        
+        let location = CLLocation(latitude: Double(Float(lat)!), longitude: Double(Float(long)!))
+        geocode(location: location) { (placemark, error) in
+            if error != nil {
+                return
+            }
+            
+            
+        }
+    }
+    
+    func geocode(location: CLLocation, completion: @escaping (_ placemark: [CLPlacemark]?, _ error: Error?) -> Void) {
+        CLGeocoder().reverseGeocodeLocation(location) { (placemark, error) in
+            guard let placemark = placemark, error == nil else {
+                completion(nil, error)
+                return
+            }
+            completion(placemark, nil)
+        }
     }
     
     @objc
