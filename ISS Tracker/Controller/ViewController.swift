@@ -7,16 +7,18 @@
 //
 
 import UIKit
+import CoreLocation
+import MapKit
 
 class ViewController: UIViewController {
     
     //MARK: UI Elements are declared here.
     var trackISSButton: UIButton = {
         let trackButton = UIButton(type: .system)
-        trackButton.setTitle("Track ISS", for: .normal)
+        trackButton.setTitle("Track 🚀", for: .normal)
         trackButton.setTitleColor(.white, for: .normal)
         trackButton.backgroundColor = .gray
-        trackButton.layer.cornerRadius = 20
+        trackButton.layer.cornerRadius = 30
         trackButton.layer.shadowColor = UIColor.darkGray.cgColor
         trackButton.layer.shadowOffset = .init(width: 2, height: 4)
         trackButton.layer.shadowRadius = 5
@@ -31,7 +33,7 @@ class ViewController: UIViewController {
     var ISSHeaderLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.text = "ISS Coordinates"
+        label.text = "ISS Coordinates 🛰 "
         label.font = UIFont.boldSystemFont(ofSize: 40)
         label.textColor = .darkGray
         label.adjustsFontSizeToFitWidth = true
@@ -61,7 +63,7 @@ class ViewController: UIViewController {
     //longitude Value Label that will be retrieved from API
     var longitudeValueLabel: UILabel = {
         let label = UILabel()
-        return label.createLabel(text: "123412")
+        return label.createLabel(text: "34.1039")
     }()
     
     //Stack View to contain Latitude and its value text
@@ -85,7 +87,7 @@ class ViewController: UIViewController {
     //latitude Value Label that will be retrieved from API
     var latitudeValueLabel: UILabel = {
         let label = UILabel()
-        return label.createLabel(text: "123412")
+        return label.createLabel(text: "51.4689")
     }()
     
     //Coordinates translation Label
@@ -109,7 +111,6 @@ class ViewController: UIViewController {
     
     func initializeUI() {
         view.backgroundColor = .white
-        
         //Adding Views to the Stack Views.
         longStackView.addArrangedSubview(LongitudeLabel)
         longStackView.addArrangedSubview(longitudeValueLabel)
@@ -150,8 +151,31 @@ class ViewController: UIViewController {
         view.addConstraints(latStackViewWidth)
     }
     
+    
+    
     @objc
     func doSomeThing() {
+//        guard let longitudeValue = longitudeValueLabel.text else {return}
+//        let long = CLLocationDegrees(exactly: Double(longitudeValue)!)
+//
+//        guard let latitudeValue = latitudeValueLabel.text else {return}
+//        let lat = CLLocationDegrees(exactly: Double(latitudeValue)!)
+//
+//        let location = CLLocation(latitude: lat!, longitude: long!)
+//
+//        let address = CLGeocoder.init()
+//        address.reverseGeocodeLocation(location) { (places, error) in
+//            guard let _ = error else {
+//                print("Error translating coordinates")
+//                return
+//            }
+//
+//            if let place = places {
+//                print(place)
+//            }
+//        }
+//
+        guard let url = URL(string: "http://api.open-notify.org/iss-now.json") else { return }
     }
 
 }

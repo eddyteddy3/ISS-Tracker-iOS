@@ -11,6 +11,7 @@
 		0322F9F9246B7834009507D7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322F9F8246B7834009507D7 /* SceneDelegate.swift */; };
 		0322F9FB246B7834009507D7 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322F9FA246B7834009507D7 /* ViewController.swift */; };
 		0322FA00246B7838009507D7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0322F9FF246B7838009507D7 /* Assets.xcassets */; };
+		0322FA2A246F63B5009507D7 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0322FA29246F63B5009507D7 /* DataModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		0322F9FA246B7834009507D7 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		0322F9FF246B7838009507D7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0322FA04246B7838009507D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0322FA29246F63B5009507D7 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 		0322F9F5246B7834009507D7 /* ISS Tracker */ = {
 			isa = PBXGroup;
 			children = (
+				0322FA28246F63A3009507D7 /* Model */,
 				0322FA0B246B7E35009507D7 /* Controller */,
 				0322FA0A246B7E29009507D7 /* Application */,
 				0322F9FF246B7838009507D7 /* Assets.xcassets */,
@@ -75,6 +78,14 @@
 				0322F9FA246B7834009507D7 /* ViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		0322FA28246F63A3009507D7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0322FA29246F63B5009507D7 /* DataModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -147,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0322F9FB246B7834009507D7 /* ViewController.swift in Sources */,
+				0322FA2A246F63B5009507D7 /* DataModel.swift in Sources */,
 				0322F9F7246B7834009507D7 /* AppDelegate.swift in Sources */,
 				0322F9F9246B7834009507D7 /* SceneDelegate.swift in Sources */,
 			);
